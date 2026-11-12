@@ -1,0 +1,30 @@
+{
+  "html": "sheet.html",
+  "css": "sheet.css",
+  "preview": "assets/principal.png",
+  "instructions": "Ficha de personagem de Shinobi no Sho 4.1. Preencha o NC e distribua os atributos. Os testes usam 2d8 mais a precisão. As opções de regras ficam na aba Configurações.",
+  "legacy": false,
+  "useroptions": [
+    {
+      "attribute": "nc",
+      "displayname": "Nível de campanha inicial",
+      "type": "number",
+      "value": "4",
+      "description": "NC usado ao criar um personagem. A ficha calcula os pontos e limites a partir desse valor."
+    },
+    {
+      "attribute": "config_regra_17",
+      "displayname": "HABILIDADES 1/2",
+      "type": "checkbox",
+      "value": "1",
+      "description": "Divide os totais de CC, CD, ESQ e LM por dois, arredondando para cima. A Reação de Esquiva usa 9 mais a Esquiva reduzida."
+    },
+    {
+      "attribute": "tres_pp_nivel",
+      "displayname": "3 pontos de poder por nível",
+      "type": "checkbox",
+      "value": "1",
+      "description": "Usa a progressão de 4 PP no NC 4, com mais 3 PP por NC seguinte."
+    }
+  ]
+}

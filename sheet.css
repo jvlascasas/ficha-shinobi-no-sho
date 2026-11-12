@@ -1,0 +1,3481 @@
+/*
+ * Shinobi no Sho · Ficha personalizada
+ * Principal: arte original de 1536 × 1024 com campos sobrepostos.
+ * Poderes e Técnicas: artes de referência com controles editáveis sobrepostos.
+ */
+
+.sheet-sns {
+  --sheet-ink: #24190f;
+  --sheet-paper: #f9ddb0;
+  --sheet-line: #866037;
+  --sheet-red: #9c3022;
+  --sheet-brush: polygon(
+    2% 0,
+    96% 3%,
+    100% 18%,
+    97% 36%,
+    100% 55%,
+    97% 72%,
+    99% 92%,
+    94% 100%,
+    3% 97%,
+    0 82%,
+    2% 60%,
+    0 35%,
+    3% 18%
+  );
+
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 1536px;
+  margin: 0 auto;
+  color: var(--sheet-ink);
+  font:
+    13px "Trebuchet MS",
+    Arial,
+    sans-serif;
+  background-color: var(--sheet-paper);
+  background-image:
+    radial-gradient(ellipse at 20% 30%, #fff0c966, transparent 55%),
+    repeating-linear-gradient(12deg, #59350b08 0 1px, transparent 1px 5px);
+  box-shadow: inset 0 0 45px #a66b3055;
+}
+
+.sheet-sns,
+.sheet-sns * {
+  box-sizing: border-box;
+}
+
+.sheet-sns input,
+.sheet-sns select,
+.sheet-sns textarea,
+.sheet-sns button {
+  color: inherit;
+  font: inherit;
+}
+
+.sheet-sns input[type="text"],
+.sheet-sns input[type="number"],
+.sheet-sns select,
+.sheet-sns textarea {
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  margin: 0;
+  padding: 5px 7px;
+  border: 1px solid #886235a6;
+  border-radius: 3px;
+  background: #fff1ce70;
+}
+
+.sheet-sns textarea {
+  height: auto;
+  min-height: 56px;
+  resize: vertical;
+  vertical-align: middle;
+}
+
+.sheet-sns input[type="number"] {
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.sheet-sns input[type="number"]::-webkit-inner-spin-button,
+.sheet-sns input[type="number"]::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.sheet-sns input[type="checkbox"],
+.sheet-sns input[type="radio"] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--sheet-red);
+}
+
+.sheet-sns input:focus-visible,
+.sheet-sns select:focus-visible,
+.sheet-sns textarea:focus-visible,
+.sheet-sns button:focus-visible {
+  outline: 2px solid var(--sheet-red);
+  outline-offset: 2px;
+  background-color: #fff2d5;
+}
+
+/* Navegação por rádio: funciona também na ficha do Roll20. */
+
+.sheet-sns .sheet-tab-state {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.sheet-tabs {
+  position: absolute;
+  z-index: 5;
+  inset: 0 0 auto;
+  display: grid;
+  grid-template-columns: 12% 16.5% 17.3% 14.3% 12.8% 21.1% 6%;
+  align-items: stretch;
+  height: 4cqw;
+  min-height: 38px;
+  background: #1c150e;
+  color: #fff0d4;
+}
+
+.sheet-tabs label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  margin: 0;
+  padding: 0 4px;
+  color: inherit;
+  font-size: clamp(10px, 1.5cqw, 23px);
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.sheet-tabs label:hover {
+  background: #ffffff12;
+}
+
+.sheet-leaf {
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/principal.png");
+  background-repeat: no-repeat;
+  background-size: 100cqw auto;
+  background-position: 0 0;
+}
+
+.sheet-leaf:last-child {
+  background-position: right top;
+}
+
+.sheet-tab-principal:checked ~ .sheet-tabs .sheet-nav-principal,
+.sheet-tab-poderes:checked ~ .sheet-tabs .sheet-nav-poderes,
+.sheet-tab-inventario:checked ~ .sheet-tabs .sheet-nav-inventario,
+.sheet-tab-kuchyose:checked ~ .sheet-tabs .sheet-nav-kuchyose,
+.sheet-tab-configuracoes:checked ~ .sheet-tabs .sheet-nav-configuracoes {
+  background-color: var(--sheet-red);
+  clip-path: var(--sheet-brush);
+}
+
+.sheet-tab-principal:checked ~ .sheet-tabs {
+  background: transparent;
+  color: transparent;
+}
+
+.sheet-tab-principal:checked ~ .sheet-tabs .sheet-leaf,
+.sheet-tab-principal:checked ~ .sheet-tabs label {
+  background: transparent;
+}
+
+.sheet-tab-principal:checked ~ .sheet-tabs .sheet-nav-principal {
+  background: transparent;
+  clip-path: none;
+}
+
+.sheet-tab-principal:focus-visible ~ .sheet-tabs .sheet-nav-principal,
+.sheet-tab-poderes:focus-visible ~ .sheet-tabs .sheet-nav-poderes,
+.sheet-tab-inventario:focus-visible ~ .sheet-tabs .sheet-nav-inventario,
+.sheet-tab-kuchyose:focus-visible ~ .sheet-tabs .sheet-nav-kuchyose,
+.sheet-tab-configuracoes:focus-visible ~ .sheet-tabs .sheet-nav-configuracoes {
+  outline: 2px solid #f4d69a;
+  outline-offset: -4px;
+}
+
+.sheet-page {
+  display: none;
+  min-width: 0;
+  padding: calc(4cqw + 18px) 18px 18px;
+}
+
+.sheet-tab-principal:checked ~ .sheet-page-principal,
+.sheet-tab-poderes:checked ~ .sheet-page-poderes,
+.sheet-tab-inventario:checked ~ .sheet-page-inventario,
+.sheet-tab-kuchyose:checked ~ .sheet-page-kuchyose,
+.sheet-tab-configuracoes:checked ~ .sheet-page-configuracoes {
+  display: block;
+}
+
+/* Principal: a imagem mantém ilustrações, molduras, títulos e tabela. */
+
+.sheet-page-principal {
+  padding: 0;
+}
+
+/* Poderes e Aptidões: a referência mantém toda a composição da página. */
+
+.sheet-page-poderes {
+  padding: 0;
+}
+
+.sheet-tab-poderes:checked ~ .sheet-tabs {
+  grid-template-columns: 12.5% 12.6302% 24.2188% 14.0625% 13.0859% 17.5781% 5.9245%;
+  color: transparent;
+  background: transparent;
+}
+
+.sheet-tab-poderes:checked ~ .sheet-tabs .sheet-leaf,
+.sheet-tab-poderes:checked ~ .sheet-tabs label {
+  background: transparent;
+}
+
+.sheet-tab-poderes:checked ~ .sheet-tabs .sheet-nav-poderes {
+  background: transparent;
+  clip-path: none;
+}
+
+.sheet-powers-artboard {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+}
+
+.sheet-powers-reference-art {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+}
+
+.sheet-powers-stat {
+  position: absolute;
+  isolation: isolate;
+  display: block;
+  margin: 0;
+}
+
+.sheet-sns .sheet-powers-stat input {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0 0.3cqw;
+  border: 0;
+  border-radius: 0;
+  color: #17140f;
+  background: transparent;
+  font:
+    bold 2.2cqw "Arial Narrow",
+    Arial,
+    sans-serif;
+  text-align: center;
+}
+
+.sheet-sns .sheet-powers-clan input {
+  font-size: 1.45cqw;
+}
+
+.sheet-sns .sheet-powers-clan input::placeholder {
+  color: #665039;
+  font-size: 1.05cqw;
+  font-weight: normal;
+  opacity: 1;
+}
+
+.sheet-powers-clan .sheet-power-text-mask {
+  display: block;
+}
+
+/* Encobre só o texto impresso quando o campo tem conteúdo; o papel e a grade ficam intactos. */
+.sheet-power-text-mask {
+  position: absolute;
+  z-index: -1;
+  top: 0.1cqw;
+  bottom: 0.1cqw;
+  left: 50%;
+  display: none;
+  width: min(calc(100% - 0.2cqw), 9cqw);
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/poderes-aptidoes.png");
+  background-repeat: no-repeat;
+  background-size: 200cqw 133.3334cqw;
+  background-position: -37.1094cqw -71.6146cqw;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.sheet-powers-artboard input:not(:placeholder-shown) ~ .sheet-power-text-mask,
+.sheet-powers-artboard textarea:not(:placeholder-shown) ~ .sheet-power-text-mask,
+.sheet-powers-artboard input:focus ~ .sheet-power-text-mask,
+.sheet-powers-artboard textarea:focus ~ .sheet-power-text-mask {
+  display: block;
+}
+
+.sheet-power-spells-list,
+.sheet-power-free-list,
+.sheet-power-paid-list {
+  position: absolute;
+  left: 26.237%;
+  width: 71.224%;
+}
+
+.sheet-power-spells-list {
+  --power-row-height: 1.7144cqw;
+  --power-columns: 22.4154% 68.893% 8.6916%;
+  top: 15.332%;
+  height: 7.7148%;
+}
+
+.sheet-power-free-list {
+  --power-row-height: 1.7144cqw;
+  --power-columns: 25.8684% 74.1316%;
+  top: 33.5286%;
+  height: 7.7148%;
+}
+
+.sheet-power-paid-list {
+  --power-row-height: 1.7144cqw;
+  --power-columns: 22.4154% 68.893% 8.6916%;
+  top: 51.5951%;
+  height: 43.7174%;
+}
+
+.sheet-power-list-overflow {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.sheet-powers-artboard .sheet-power-spells-list fieldset,
+.sheet-powers-artboard .sheet-power-free-list fieldset,
+.sheet-powers-artboard .sheet-power-paid-list fieldset,
+.sheet-powers-artboard .sheet-power-row,
+.sheet-powers-artboard .sheet-power-spells-list .sheet-preview-item,
+.sheet-powers-artboard .sheet-power-free-list .sheet-preview-item,
+.sheet-powers-artboard .sheet-power-paid-list .sheet-preview-item {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.sheet-powers-artboard .sheet-power-row {
+  display: grid;
+  grid-template-columns: var(--power-columns);
+  gap: 0;
+  height: var(--power-row-height);
+  min-height: 0;
+}
+
+.sheet-power-cell {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0.06cqw 0.15cqw;
+}
+
+.sheet-sns .sheet-power-cell input,
+.sheet-sns .sheet-power-cell textarea {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0 0.1cqw;
+  border: 0;
+  border-radius: 0;
+  color: #17140f;
+  background: transparent;
+  font:
+    bold 1.08cqw "Arial Narrow",
+    Arial,
+    sans-serif;
+  line-height: calc(var(--power-row-height) - 0.12cqw);
+  text-align: center;
+  resize: none;
+}
+
+.sheet-spell-name .sheet-power-text-mask {
+  display: block;
+}
+
+.sheet-sns .sheet-spell-name input::placeholder {
+  color: #17140f;
+  opacity: 1;
+}
+
+.sheet-sns .sheet-power-cell textarea {
+  overflow: hidden;
+  font-size: 1cqw;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.sheet-sns .sheet-power-cell input[type="number"] {
+  font-family: Arial, sans-serif;
+  font-size: 1.18cqw;
+}
+
+.sheet-power-description:focus-within {
+  z-index: 12;
+}
+
+.sheet-sns .sheet-power-description textarea:focus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  height: max(70px, 6cqw);
+  padding: 0.45cqw;
+  overflow: auto;
+  border: 1px solid var(--sheet-red);
+  background: #fff2d5;
+  line-height: 1.4;
+  text-align: left;
+  white-space: pre-wrap;
+  resize: vertical;
+}
+
+.sheet-power-spells-list
+  .sheet-preview-item:nth-last-child(-n + 2)
+  .sheet-power-description
+  textarea:focus,
+.sheet-power-spells-list .repitem:nth-last-child(-n + 2) .sheet-power-description textarea:focus,
+.sheet-power-paid-list
+  .sheet-preview-item:nth-last-child(-n + 4)
+  .sheet-power-description
+  textarea:focus,
+.sheet-power-paid-list .repitem:nth-last-child(-n + 4) .sheet-power-description textarea:focus {
+  top: auto;
+  bottom: 0;
+}
+
+.sheet-power-spells-list .repcontrol,
+.sheet-power-free-list .repcontrol,
+.sheet-power-paid-list .repcontrol {
+  display: none;
+}
+
+.sheet-main-artboard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  isolation: isolate;
+}
+
+.sheet-reference-art {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+}
+
+.sheet-art-field {
+  position: absolute;
+  display: block;
+  min-width: 0;
+  margin: 0;
+  font-weight: normal;
+}
+
+/* O papel da própria arte encobre os valores impressos sob os campos. */
+label.sheet-art-field {
+  isolation: isolate;
+}
+
+label.sheet-art-field::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/principal.png");
+  background-repeat: no-repeat;
+  background-size: 100cqw 66.6667cqw;
+  background-position: -74cqw -9cqw;
+}
+
+label.sheet-art-campaign::before,
+label.sheet-art-attribute::before {
+  content: none;
+}
+
+.sheet-sns .sheet-art-field input,
+.sheet-sns .sheet-art-field select {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0 0.15cqw;
+  border: 0;
+  border-radius: 0;
+  color: #17140f;
+  background: transparent;
+  box-shadow: none;
+  font-family: "Arial Narrow", "Trebuchet MS", Arial, sans-serif;
+  font-size: 1.05cqw;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.sheet-sns .sheet-art-field select {
+  padding: 0;
+  font-size: 0.82cqw;
+  text-transform: uppercase;
+}
+
+.sheet-sns .sheet-art-name input {
+  background: transparent;
+  font-size: 1.2cqw;
+}
+
+.sheet-sns .sheet-art-name input::placeholder {
+  color: #24190f;
+  opacity: 1;
+  text-transform: uppercase;
+}
+
+.sheet-art-caption {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.1cqw;
+  color: #fff0d0;
+  background: #21180f;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 0.98cqw;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sheet-art-field input[readonly] {
+  cursor: default;
+}
+
+.sheet-sns .sheet-rule-note {
+  margin: 8px 0 14px;
+  line-height: 1.5;
+}
+
+.sheet-rolltemplate-snstest .sheet-test-card {
+  padding: 12px;
+  border: 1px solid #866037;
+  border-radius: 3px;
+  color: #24190f;
+  background: #f9ddb0;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+.sheet-rolltemplate-snstest h3,
+.sheet-rolltemplate-snstest p {
+  margin: 0 0 8px;
+}
+
+.sheet-rolltemplate-snstest .sheet-test-damage {
+  padding-top: 10px;
+  border-top: 1px solid #866037;
+  text-align: center;
+}
+
+.sheet-rolltemplate-snstest .sheet-test-grade,
+.sheet-rolltemplate-snstest .sheet-test-damage-label {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sheet-rolltemplate-snstest .sheet-test-damage-label {
+  margin-top: 10px;
+}
+
+.sheet-rolltemplate-snstest .sheet-test-damage-value {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.sheet-sns .sheet-art-campaign input {
+  background: transparent;
+  font-size: 3.2cqw;
+}
+
+.sheet-sns .sheet-art-attribute input {
+  background: transparent;
+  font-size: 2cqw;
+}
+
+.sheet-attribute-summary {
+  position: absolute;
+  top: 23.3398%;
+  left: 45.0521%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8cqw;
+  width: 52.8646%;
+  height: 3.125%;
+  padding: 0 0.4cqw;
+  color: #fff0d0;
+  background: #21180f;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 1cqw;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.sheet-attribute-summary-title {
+  font-size: 1.3cqw;
+  font-style: italic;
+}
+
+.sheet-attribute-summary label {
+  display: flex;
+  align-items: center;
+  gap: 0.5cqw;
+  height: 100%;
+  margin: 0;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.sheet-sns .sheet-attribute-summary input[type="number"] {
+  width: 3.8cqw;
+  height: 75%;
+  min-height: 1.55cqw;
+  padding: 0;
+  border: 1px solid #b0854e;
+  border-radius: 2px;
+  color: #24190f;
+  background: var(--sheet-paper);
+  font-size: 1.15cqw;
+  font-weight: 700;
+}
+
+.sheet-sns .sheet-art-stat input {
+  font-size: 1.6cqw;
+}
+
+.sheet-sns .sheet-art-cell input {
+  padding: 0;
+  font-size: 0.94cqw;
+}
+
+.sheet-sns .sheet-art-cell input[type="text"] {
+  text-transform: uppercase;
+}
+
+.sheet-sns .sheet-art-small input {
+  font-size: 0.85cqw;
+}
+
+.sheet-sns .sheet-art-field input:focus,
+.sheet-sns .sheet-art-field select:focus {
+  position: relative;
+  z-index: 2;
+  outline: 2px solid var(--sheet-red);
+  outline-offset: 0;
+  background-color: #fff1d1;
+}
+
+/* Perito e modificadores usam caixas de seleção nativas. */
+
+.sheet-sns .sheet-art-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sheet-sns .sheet-extra-damage-toggle {
+  gap: 0.65cqw;
+}
+
+.sheet-extra-damage-bonus {
+  color: var(--sheet-ink);
+  font:
+    bold 1.1cqw "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+
+.sheet-sns .sheet-art-toggle input[type="checkbox"] {
+  position: static;
+  width: 0.9cqw;
+  height: 0.9cqw;
+  max-height: 100%;
+  aspect-ratio: 1;
+  margin: 0;
+  padding: 0;
+  opacity: 1;
+  appearance: auto;
+  accent-color: var(--sheet-red);
+  cursor: pointer;
+}
+
+/* Ícones de dado e rótulos das linhas de teste. */
+
+.sheet-sns button.sheet-roll-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 1.2cqw;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  box-shadow: none;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sheet-sns button.sheet-roll-button::before {
+  content: none;
+}
+
+.sheet-roll-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.sheet-sns button.sheet-roll-button:hover {
+  outline: 1px solid var(--sheet-red);
+  background-color: #fff1d180;
+}
+
+.sheet-sns button.sheet-attribute-roll {
+  position: absolute;
+  padding: 0.2cqw;
+  border-radius: 50%;
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/principal.png");
+  background-repeat: no-repeat;
+  background-size: 100cqw 66.6667cqw;
+  background-position: -74cqw -9cqw;
+}
+
+.sheet-roll-row {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.2cqw;
+  padding: 0 0.1cqw;
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/principal.png");
+  background-repeat: no-repeat;
+  background-size: 100cqw 66.6667cqw;
+  background-position: -74cqw -9cqw;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 0.76cqw;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sheet-roll-row > span {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.sheet-combat-roll > span {
+  font-size: 1cqw;
+  text-align: center;
+}
+
+.sheet-roll-result {
+  width: min(360px, 90vw);
+  padding: 18px;
+  border: 2px solid var(--sheet-ink);
+  border-radius: 6px;
+  color: var(--sheet-ink);
+  background: var(--sheet-paper);
+  font:
+    14px "Trebuchet MS",
+    Arial,
+    sans-serif;
+  text-align: center;
+}
+
+.sheet-roll-result::backdrop {
+  background: #21180f80;
+}
+
+.sheet-roll-result p {
+  margin: 12px 0;
+}
+
+.sheet-roll-result output {
+  display: block;
+  margin: 4px 0 14px;
+  font-size: 32px;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+}
+
+.sheet-roll-result-label {
+  display: block;
+  font-size: 12px;
+}
+
+.sheet-roll-damage-block {
+  margin: 14px 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--sheet-line);
+}
+
+.sheet-roll-damage-block[hidden] {
+  display: none;
+}
+
+.sheet-roll-grade,
+.sheet-roll-damage-label {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.sheet-roll-damage-label {
+  margin-top: 12px;
+}
+
+.sheet-roll-result .sheet-roll-damage {
+  margin: 0;
+  font-size: 48px;
+  line-height: 1.15;
+}
+
+.sheet-roll-result button {
+  padding: 6px 18px;
+  border: 1px solid var(--sheet-line);
+  border-radius: 3px;
+  background: #e9c58b;
+  cursor: pointer;
+}
+
+/* Barras lisas de leitura. O valor oculto é atualizado pelo Sheet Worker. */
+
+.sheet-energy-panel {
+  position: absolute;
+  left: 1.7578%;
+  top: 37.8906%;
+  width: 32.0313%;
+  height: 9.1797%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.55cqw;
+  padding: 0.3cqw 0.2cqw;
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/principal.png");
+  background-repeat: no-repeat;
+  background-size: 200cqw 133.3334cqw;
+  background-position: -148cqw -18cqw;
+}
+
+.sheet-energy-panel-row {
+  display: grid;
+  grid-template-columns: 7.2cqw 1fr;
+  align-items: center;
+  gap: 0.6cqw;
+  min-height: 0;
+}
+
+.sheet-energy-panel-label {
+  padding: 0.35cqw 0.45cqw;
+  color: #fff0d0;
+  background: #21180f;
+  clip-path: var(--sheet-brush);
+  font:
+    bold 1.05cqw "Arial Narrow",
+    Arial,
+    sans-serif;
+  text-align: center;
+}
+
+.sheet-energy-panel .sheet-energy-bar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.sheet-energy-bar {
+  overflow: hidden;
+  background: #edcea0;
+}
+
+.sheet-sns .sheet-energy-bar .sheet-energy-state {
+  display: none;
+}
+
+.sheet-energy-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #b82d25;
+}
+
+.sheet-energy-chakra .sheet-energy-fill {
+  background: #337b9b;
+}
+
+/* Seletores por valor permitem atualizar as barras dentro do Roll20. */
+
+.sheet-energy-state[value="0"] + .sheet-energy-fill {
+  width: 0%;
+}
+
+.sheet-energy-state[value="1"] + .sheet-energy-fill {
+  width: 1%;
+}
+
+.sheet-energy-state[value="2"] + .sheet-energy-fill {
+  width: 2%;
+}
+
+.sheet-energy-state[value="3"] + .sheet-energy-fill {
+  width: 3%;
+}
+
+.sheet-energy-state[value="4"] + .sheet-energy-fill {
+  width: 4%;
+}
+
+.sheet-energy-state[value="5"] + .sheet-energy-fill {
+  width: 5%;
+}
+
+.sheet-energy-state[value="6"] + .sheet-energy-fill {
+  width: 6%;
+}
+
+.sheet-energy-state[value="7"] + .sheet-energy-fill {
+  width: 7%;
+}
+
+.sheet-energy-state[value="8"] + .sheet-energy-fill {
+  width: 8%;
+}
+
+.sheet-energy-state[value="9"] + .sheet-energy-fill {
+  width: 9%;
+}
+
+.sheet-energy-state[value="10"] + .sheet-energy-fill {
+  width: 10%;
+}
+
+.sheet-energy-state[value="11"] + .sheet-energy-fill {
+  width: 11%;
+}
+
+.sheet-energy-state[value="12"] + .sheet-energy-fill {
+  width: 12%;
+}
+
+.sheet-energy-state[value="13"] + .sheet-energy-fill {
+  width: 13%;
+}
+
+.sheet-energy-state[value="14"] + .sheet-energy-fill {
+  width: 14%;
+}
+
+.sheet-energy-state[value="15"] + .sheet-energy-fill {
+  width: 15%;
+}
+
+.sheet-energy-state[value="16"] + .sheet-energy-fill {
+  width: 16%;
+}
+
+.sheet-energy-state[value="17"] + .sheet-energy-fill {
+  width: 17%;
+}
+
+.sheet-energy-state[value="18"] + .sheet-energy-fill {
+  width: 18%;
+}
+
+.sheet-energy-state[value="19"] + .sheet-energy-fill {
+  width: 19%;
+}
+
+.sheet-energy-state[value="20"] + .sheet-energy-fill {
+  width: 20%;
+}
+
+.sheet-energy-state[value="21"] + .sheet-energy-fill {
+  width: 21%;
+}
+
+.sheet-energy-state[value="22"] + .sheet-energy-fill {
+  width: 22%;
+}
+
+.sheet-energy-state[value="23"] + .sheet-energy-fill {
+  width: 23%;
+}
+
+.sheet-energy-state[value="24"] + .sheet-energy-fill {
+  width: 24%;
+}
+
+.sheet-energy-state[value="25"] + .sheet-energy-fill {
+  width: 25%;
+}
+
+.sheet-energy-state[value="26"] + .sheet-energy-fill {
+  width: 26%;
+}
+
+.sheet-energy-state[value="27"] + .sheet-energy-fill {
+  width: 27%;
+}
+
+.sheet-energy-state[value="28"] + .sheet-energy-fill {
+  width: 28%;
+}
+
+.sheet-energy-state[value="29"] + .sheet-energy-fill {
+  width: 29%;
+}
+
+.sheet-energy-state[value="30"] + .sheet-energy-fill {
+  width: 30%;
+}
+
+.sheet-energy-state[value="31"] + .sheet-energy-fill {
+  width: 31%;
+}
+
+.sheet-energy-state[value="32"] + .sheet-energy-fill {
+  width: 32%;
+}
+
+.sheet-energy-state[value="33"] + .sheet-energy-fill {
+  width: 33%;
+}
+
+.sheet-energy-state[value="34"] + .sheet-energy-fill {
+  width: 34%;
+}
+
+.sheet-energy-state[value="35"] + .sheet-energy-fill {
+  width: 35%;
+}
+
+.sheet-energy-state[value="36"] + .sheet-energy-fill {
+  width: 36%;
+}
+
+.sheet-energy-state[value="37"] + .sheet-energy-fill {
+  width: 37%;
+}
+
+.sheet-energy-state[value="38"] + .sheet-energy-fill {
+  width: 38%;
+}
+
+.sheet-energy-state[value="39"] + .sheet-energy-fill {
+  width: 39%;
+}
+
+.sheet-energy-state[value="40"] + .sheet-energy-fill {
+  width: 40%;
+}
+
+.sheet-energy-state[value="41"] + .sheet-energy-fill {
+  width: 41%;
+}
+
+.sheet-energy-state[value="42"] + .sheet-energy-fill {
+  width: 42%;
+}
+
+.sheet-energy-state[value="43"] + .sheet-energy-fill {
+  width: 43%;
+}
+
+.sheet-energy-state[value="44"] + .sheet-energy-fill {
+  width: 44%;
+}
+
+.sheet-energy-state[value="45"] + .sheet-energy-fill {
+  width: 45%;
+}
+
+.sheet-energy-state[value="46"] + .sheet-energy-fill {
+  width: 46%;
+}
+
+.sheet-energy-state[value="47"] + .sheet-energy-fill {
+  width: 47%;
+}
+
+.sheet-energy-state[value="48"] + .sheet-energy-fill {
+  width: 48%;
+}
+
+.sheet-energy-state[value="49"] + .sheet-energy-fill {
+  width: 49%;
+}
+
+.sheet-energy-state[value="50"] + .sheet-energy-fill {
+  width: 50%;
+}
+
+.sheet-energy-state[value="51"] + .sheet-energy-fill {
+  width: 51%;
+}
+
+.sheet-energy-state[value="52"] + .sheet-energy-fill {
+  width: 52%;
+}
+
+.sheet-energy-state[value="53"] + .sheet-energy-fill {
+  width: 53%;
+}
+
+.sheet-energy-state[value="54"] + .sheet-energy-fill {
+  width: 54%;
+}
+
+.sheet-energy-state[value="55"] + .sheet-energy-fill {
+  width: 55%;
+}
+
+.sheet-energy-state[value="56"] + .sheet-energy-fill {
+  width: 56%;
+}
+
+.sheet-energy-state[value="57"] + .sheet-energy-fill {
+  width: 57%;
+}
+
+.sheet-energy-state[value="58"] + .sheet-energy-fill {
+  width: 58%;
+}
+
+.sheet-energy-state[value="59"] + .sheet-energy-fill {
+  width: 59%;
+}
+
+.sheet-energy-state[value="60"] + .sheet-energy-fill {
+  width: 60%;
+}
+
+.sheet-energy-state[value="61"] + .sheet-energy-fill {
+  width: 61%;
+}
+
+.sheet-energy-state[value="62"] + .sheet-energy-fill {
+  width: 62%;
+}
+
+.sheet-energy-state[value="63"] + .sheet-energy-fill {
+  width: 63%;
+}
+
+.sheet-energy-state[value="64"] + .sheet-energy-fill {
+  width: 64%;
+}
+
+.sheet-energy-state[value="65"] + .sheet-energy-fill {
+  width: 65%;
+}
+
+.sheet-energy-state[value="66"] + .sheet-energy-fill {
+  width: 66%;
+}
+
+.sheet-energy-state[value="67"] + .sheet-energy-fill {
+  width: 67%;
+}
+
+.sheet-energy-state[value="68"] + .sheet-energy-fill {
+  width: 68%;
+}
+
+.sheet-energy-state[value="69"] + .sheet-energy-fill {
+  width: 69%;
+}
+
+.sheet-energy-state[value="70"] + .sheet-energy-fill {
+  width: 70%;
+}
+
+.sheet-energy-state[value="71"] + .sheet-energy-fill {
+  width: 71%;
+}
+
+.sheet-energy-state[value="72"] + .sheet-energy-fill {
+  width: 72%;
+}
+
+.sheet-energy-state[value="73"] + .sheet-energy-fill {
+  width: 73%;
+}
+
+.sheet-energy-state[value="74"] + .sheet-energy-fill {
+  width: 74%;
+}
+
+.sheet-energy-state[value="75"] + .sheet-energy-fill {
+  width: 75%;
+}
+
+.sheet-energy-state[value="76"] + .sheet-energy-fill {
+  width: 76%;
+}
+
+.sheet-energy-state[value="77"] + .sheet-energy-fill {
+  width: 77%;
+}
+
+.sheet-energy-state[value="78"] + .sheet-energy-fill {
+  width: 78%;
+}
+
+.sheet-energy-state[value="79"] + .sheet-energy-fill {
+  width: 79%;
+}
+
+.sheet-energy-state[value="80"] + .sheet-energy-fill {
+  width: 80%;
+}
+
+.sheet-energy-state[value="81"] + .sheet-energy-fill {
+  width: 81%;
+}
+
+.sheet-energy-state[value="82"] + .sheet-energy-fill {
+  width: 82%;
+}
+
+.sheet-energy-state[value="83"] + .sheet-energy-fill {
+  width: 83%;
+}
+
+.sheet-energy-state[value="84"] + .sheet-energy-fill {
+  width: 84%;
+}
+
+.sheet-energy-state[value="85"] + .sheet-energy-fill {
+  width: 85%;
+}
+
+.sheet-energy-state[value="86"] + .sheet-energy-fill {
+  width: 86%;
+}
+
+.sheet-energy-state[value="87"] + .sheet-energy-fill {
+  width: 87%;
+}
+
+.sheet-energy-state[value="88"] + .sheet-energy-fill {
+  width: 88%;
+}
+
+.sheet-energy-state[value="89"] + .sheet-energy-fill {
+  width: 89%;
+}
+
+.sheet-energy-state[value="90"] + .sheet-energy-fill {
+  width: 90%;
+}
+
+.sheet-energy-state[value="91"] + .sheet-energy-fill {
+  width: 91%;
+}
+
+.sheet-energy-state[value="92"] + .sheet-energy-fill {
+  width: 92%;
+}
+
+.sheet-energy-state[value="93"] + .sheet-energy-fill {
+  width: 93%;
+}
+
+.sheet-energy-state[value="94"] + .sheet-energy-fill {
+  width: 94%;
+}
+
+.sheet-energy-state[value="95"] + .sheet-energy-fill {
+  width: 95%;
+}
+
+.sheet-energy-state[value="96"] + .sheet-energy-fill {
+  width: 96%;
+}
+
+.sheet-energy-state[value="97"] + .sheet-energy-fill {
+  width: 97%;
+}
+
+.sheet-energy-state[value="98"] + .sheet-energy-fill {
+  width: 98%;
+}
+
+.sheet-energy-state[value="99"] + .sheet-energy-fill {
+  width: 99%;
+}
+
+.sheet-energy-state[value="100"] + .sheet-energy-fill {
+  width: 100%;
+}
+
+.sheet-avatar-slot {
+  position: absolute;
+  top: 9.375%;
+  left: 8.3333%;
+  width: 11.3281%;
+  height: 16.9922%;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.sheet-avatar-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20%;
+  color: #584127;
+  font-size: 1cqw;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sheet-avatar[src]:not([src=""]) ~ .sheet-avatar-hint {
+  display: none;
+}
+
+.sheet-avatar-upload {
+  position: absolute;
+  inset: 0;
+  display: block;
+  margin: 0;
+  cursor: pointer;
+}
+
+.sheet-sns .sheet-avatar-file {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.sheet-avatar-upload > span {
+  position: absolute;
+  right: 0;
+  bottom: 12%;
+  left: 0;
+  color: #fff0d0;
+  background: #24190fe6;
+  font-size: 0.9cqw;
+  text-align: center;
+  pointer-events: none;
+}
+
+.sheet-avatar[src]:not([src=""]) ~ .sheet-avatar-upload > span {
+  opacity: 0;
+}
+
+.sheet-avatar-slot:hover .sheet-avatar-upload > span,
+.sheet-avatar-slot:focus-within .sheet-avatar-upload > span {
+  opacity: 1;
+}
+
+.sheet-avatar-slot:focus-within {
+  outline: 2px solid var(--sheet-red);
+  outline-offset: 2px;
+}
+
+.sheet-avatar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+.sheet-portrait-editor {
+  position: absolute;
+  z-index: 6;
+  top: 27.3%;
+  left: 8.3333%;
+  width: 11.3281%;
+}
+
+.sheet-portrait-editor > summary {
+  padding: 0.3cqw 0.2cqw;
+  border: 1px solid #80603b;
+  border-radius: 3px;
+  background: #f9ddb0;
+  font-size: 0.95cqw;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+.sheet-portrait-panel {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 10px);
+  display: grid;
+  gap: 12px;
+  width: clamp(190px, 24cqw, 320px);
+  padding: 14px;
+  border: 2px solid var(--sheet-ink);
+  border-radius: 5px;
+  background: #f9ddb0;
+  box-shadow: 0 4px 16px #24190f33;
+  font-size: 13px;
+}
+
+.sheet-portrait-control {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+}
+
+.sheet-portrait-control > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sheet-portrait-control output {
+  font-variant-numeric: tabular-nums;
+}
+
+.sheet-portrait-control input[type="range"] {
+  width: 100%;
+  margin: 0;
+  accent-color: var(--sheet-red);
+  cursor: pointer;
+}
+
+.sheet-avatar:not([src]),
+.sheet-avatar[src=""] {
+  display: none;
+}
+
+.sheet-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+/* Formulários complementares e demais abas. */
+
+.sheet-split {
+  display: grid;
+  grid-template-columns: minmax(220px, 25%) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.sheet-split > *,
+.sheet-grid > * {
+  min-width: 0;
+}
+
+.sheet-panel {
+  margin: 0 0 15px;
+  padding: 10px;
+  border: 2px solid var(--sheet-ink);
+  border-radius: 7px 3px 8px 4px;
+  background: #ffebbd26;
+}
+
+.sheet-sns h1 {
+  margin: 0;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+.sheet-sns h2 {
+  margin: -2px 0 12px;
+  padding: 6px 16px;
+  border: 0;
+  color: #fff0d0;
+  background: var(--sheet-ink);
+  clip-path: var(--sheet-brush);
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.sheet-sns h3 {
+  margin: 0 0 6px;
+  padding: 5px;
+  color: #fff0d0;
+  background: var(--sheet-ink);
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.sheet-brand {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 12px 0;
+}
+
+.sheet-brand img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  mix-blend-mode: multiply;
+  filter: contrast(1.15) brightness(1.28);
+  clip-path: inset(2px);
+}
+
+.sheet-logo {
+  width: 280px;
+}
+
+.sheet-naruto {
+  width: 228px;
+}
+
+.sheet-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.sheet-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sheet-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sheet-four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sheet-field {
+  display: block;
+  margin: 0 0 9px;
+  font-weight: normal;
+}
+
+.sheet-field > span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.sheet-attributes {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.sheet-attribute {
+  display: block;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--sheet-ink);
+  border-radius: 3px;
+}
+
+.sheet-attribute > span {
+  display: block;
+  padding: 6px 1px;
+  color: #fff0d0;
+  background: var(--sheet-ink);
+  font-size: 10px;
+  text-align: center;
+}
+
+.sheet-attribute b {
+  display: block;
+  color: #e0ba77;
+  font-size: 23px;
+  line-height: 1.2;
+}
+
+.sheet-sns .sheet-attribute input {
+  height: 45px;
+  border: 0;
+  background: transparent;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sheet-resource {
+  min-width: 0;
+}
+
+.sheet-resource:first-child h3 {
+  background: #8d3025;
+}
+
+.sheet-resource:nth-child(2) h3 {
+  background: #2b5264;
+}
+
+.sheet-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  margin: 0;
+  padding: 6px 3px;
+  border-bottom: 1px solid #88623555;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.sheet-table-wrap {
+  width: 100%;
+  margin-bottom: 8px;
+  overflow-x: auto;
+}
+
+.sheet-sns table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 11px;
+}
+
+.sheet-sns th {
+  padding: 6px 3px;
+  border: 1px solid var(--sheet-line);
+  color: #fff0d0;
+  background: var(--sheet-ink);
+  font-size: 10px;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.sheet-sns td {
+  padding: 0 2px;
+  border: 1px solid var(--sheet-line);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.sheet-sns td:first-child {
+  padding: 3px 5px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.sheet-sns th:first-child {
+  width: 25%;
+}
+
+.sheet-sns td input[type="number"] {
+  height: 28px;
+  padding: 4px 0;
+  border: 0;
+  border-radius: 0;
+  background: #fff0ce33;
+  font-size: 12px;
+}
+
+.sheet-repeat-head,
+.sheet-repeat-row {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  align-items: start;
+  gap: 6px;
+}
+
+.sheet-repeat-head {
+  padding: 7px 6px;
+  color: #fff0d0;
+  background: var(--sheet-ink);
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.sheet-repeat-head span {
+  overflow-wrap: anywhere;
+}
+
+.sheet-repeat-row {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--sheet-line);
+}
+
+.sheet-repeat-row textarea {
+  min-height: 32px;
+}
+
+.sheet-sns fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.sheet-sns .repcontrol {
+  padding-top: 7px;
+}
+
+.sheet-sns .repcontrol button,
+.sheet-sns .sheet-add,
+.sheet-sns .sheet-remove {
+  padding: 5px 10px;
+  border: 1px solid var(--sheet-line);
+  border-radius: 3px;
+  background: #e9c58b;
+  cursor: pointer;
+}
+
+.sheet-sns .sheet-remove {
+  margin: 3px 0 6px;
+  color: #7d251c;
+  font-size: 11px;
+}
+
+.sheet-page-banner {
+  display: flex;
+  align-items: center;
+  gap: 45px;
+  margin-bottom: 10px;
+}
+
+.sheet-page-banner .sheet-brand {
+  grid-template-columns: 260px 180px;
+}
+
+.sheet-page-banner p {
+  margin: 8px 0;
+}
+
+.sheet-settings {
+  gap: 10px;
+}
+
+.sheet-settings .sheet-panel {
+  padding: 8px;
+}
+
+.sheet-settings h2 {
+  min-height: 52px;
+  padding: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .sheet-attributes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .sheet-settings {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sheet-page-banner {
+    gap: 16px;
+  }
+
+  .sheet-page-banner .sheet-brand {
+    grid-template-columns: 180px 120px;
+  }
+}
+
+@media (max-width: 700px) {
+  .sheet-page:not(.sheet-page-principal) {
+    padding: 62px 10px 10px;
+  }
+
+  .sheet-split {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-grid.sheet-four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sheet-page-banner {
+    display: block;
+  }
+
+  .sheet-page-banner .sheet-brand {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .sheet-sns table {
+    min-width: 450px;
+  }
+
+  .sheet-tab-principal:not(:checked) ~ .sheet-tabs {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    min-height: 50px;
+  }
+
+  .sheet-tab-principal:not(:checked) ~ .sheet-tabs .sheet-leaf {
+    display: none;
+  }
+
+  .sheet-tab-principal:checked ~ .sheet-tabs {
+    min-height: 0;
+  }
+}
+
+@media print {
+  .sheet-sns {
+    max-width: none;
+    box-shadow: none;
+  }
+
+  .sheet-tabs,
+  .repcontrol,
+  .sheet-add,
+  .sheet-remove {
+    display: none !important;
+  }
+
+  .sheet-page:not(.sheet-page-principal) {
+    padding: 12px;
+  }
+
+  .sheet-panel {
+    break-inside: avoid;
+  }
+}
+
+/* Navegação comum às sete abas, com letras e pincéis da referência. */
+.sheet-sns .sheet-tab-state:checked ~ .sheet-tabs {
+  grid-template-columns: 80fr 165fr 263fr 282fr 174fr 160fr 155fr 193fr 64fr;
+  height: 4.1667cqw;
+  min-height: 0;
+  color: transparent;
+  background-color: #1c150e;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.sheet-sns .sheet-tab-state:checked ~ .sheet-tabs label[class],
+.sheet-sns .sheet-tab-state:checked ~ .sheet-tabs .sheet-leaf {
+  color: transparent;
+  background: transparent;
+  clip-path: none;
+}
+.sheet-sns .sheet-tab-principal:checked ~ .sheet-tabs {
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/navigation-nav-principal.png");
+}
+.sheet-sns .sheet-tab-principal:checked ~ .sheet-tabs::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/principal.png")
+    0 0 / 100cqw 66.6667cqw no-repeat;
+  clip-path: polygon(7.25% 47%, 11.1% 100%, 7.45% 100%);
+  pointer-events: none;
+}
+.sheet-sns .sheet-tab-poderes:checked ~ .sheet-tabs {
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/navigation-nav-poderes.png");
+}
+.sheet-sns .sheet-tab-tecnicas:checked ~ .sheet-tabs {
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/navigation-nav-tecnicas.png");
+}
+.sheet-sns .sheet-tab-inventario:checked ~ .sheet-tabs {
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/navigation-nav-inventario.png");
+}
+.sheet-sns .sheet-tab-kugutsu:checked ~ .sheet-tabs {
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/navigation-nav-kugutsu.png");
+}
+.sheet-sns .sheet-tab-kuchyose:checked ~ .sheet-tabs {
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/navigation-nav-kuchyose.png");
+}
+.sheet-sns .sheet-tab-configuracoes:checked ~ .sheet-tabs {
+  background-image: url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/navigation-nav-configuracoes.png");
+}
+.sheet-tab-tecnicas:checked ~ .sheet-page-tecnicas {
+  display: block;
+}
+.sheet-tab-tecnicas:focus-visible ~ .sheet-tabs .sheet-nav-tecnicas {
+  outline: 2px solid #f4d69a;
+  outline-offset: -4px;
+}
+.sheet-page-tecnicas {
+  padding: 0;
+}
+.sheet-techniques-artboard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  isolation: isolate;
+}
+.sheet-technique-count {
+  position: absolute;
+  left: 28.9%;
+  top: 33.9%;
+  width: 3%;
+  color: #a82f20;
+  font:
+    bold italic 1.65cqw Arial,
+    sans-serif;
+  text-align: center;
+}
+.sheet-sns .sheet-technique-new {
+  position: absolute;
+  left: 32.2%;
+  top: 33.5%;
+  width: 10.1%;
+  height: 3.8%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.sheet-technique-new:hover {
+  outline: 1px solid #eac88b;
+}
+.sheet-technique-list {
+  position: absolute;
+  left: 2.0833%;
+  top: 38.8672%;
+  width: 40.0391%;
+  height: 56.8359%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-right: 0.7cqw;
+  scrollbar-color: #302115 #ffe0a0;
+  scrollbar-width: thin;
+}
+.sheet-technique-list::-webkit-scrollbar {
+  width: 1.2cqw;
+}
+.sheet-technique-list::-webkit-scrollbar-track {
+  border: 1px solid #60451f;
+  border-radius: 8px;
+  background: #ffe0a0;
+}
+.sheet-technique-list::-webkit-scrollbar-thumb {
+  border: 2px solid #ffe0a0;
+  border-radius: 8px;
+  background: #302115;
+}
+.sheet-techniques-artboard .sheet-technique-list fieldset,
+.sheet-techniques-artboard .sheet-technique-list .sheet-preview-item,
+.sheet-techniques-artboard .sheet-technique-list .repitem {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+.sheet-technique-list .repcontrol {
+  display: none;
+}
+.sheet-technique-placeholders > div,
+.sheet-technique-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.9cqw;
+  height: 3.7891cqw;
+  border-bottom: 1px solid #776234;
+  color: #1d180f;
+  font:
+    bold italic 1.45cqw "Trebuchet MS",
+    Arial,
+    sans-serif;
+}
+.sheet-technique-placeholders > div:first-child {
+  border-radius: 0.5cqw;
+  background: #ba452d80;
+}
+.sheet-technique-row {
+  isolation: isolate;
+}
+.sheet-technique-row-highlight {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: 0.5cqw;
+}
+.sheet-technique-row > input[name$="selecionada"][value="1"] ~ .sheet-technique-row-highlight {
+  background: #ba452d80;
+}
+.sheet-technique-placeholders img {
+  width: 2.65cqw;
+  height: 2.9cqw;
+  margin: 0 0.5cqw;
+}
+.sheet-technique-placeholders > div > span {
+  margin-left: auto;
+  margin-right: 0.9cqw;
+  font-size: 2.1cqw;
+}
+.sheet-technique-empty-flag[value="0"] ~ .sheet-technique-list .sheet-technique-placeholders {
+  display: none;
+}
+.sheet-sns .sheet-technique-row button {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.sheet-technique-row button::before,
+.sheet-technique-heading-die::before {
+  content: none !important;
+}
+.sheet-sns .sheet-technique-die {
+  flex: 0 0 3.65cqw;
+  width: 3.65cqw;
+  height: 3.3cqw;
+}
+.sheet-technique-die img {
+  display: block;
+  width: 2.65cqw;
+  height: 2.9cqw;
+  margin: auto;
+}
+.sheet-sns .sheet-technique-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6cqw;
+  flex: 1;
+  height: 100%;
+  font: inherit;
+  text-align: left;
+}
+.sheet-technique-select > span:first-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.sheet-technique-select > span:last-child {
+  flex-shrink: 0;
+  margin-right: 0.9cqw;
+  font-size: 2.1cqw;
+}
+.sheet-sns .sheet-technique-remove {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1.2cqw;
+  height: 1.3cqw;
+  opacity: 0;
+  font-size: 1.3cqw;
+}
+.sheet-technique-row:hover .sheet-technique-remove,
+.sheet-technique-remove:focus-visible {
+  opacity: 1;
+}
+.sheet-sns .sheet-technique-heading-die {
+  position: absolute;
+  left: 44.7917%;
+  top: 32.5195%;
+  width: 3.125%;
+  height: 4.6875%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.sheet-technique-heading-die img {
+  width: 100%;
+  height: 100%;
+}
+.sheet-technique-name {
+  position: absolute;
+  left: 47.6%;
+  top: 39.8%;
+  width: 26%;
+  height: 4.3%;
+  margin: 0;
+}
+.sheet-sns .sheet-technique-name input {
+  height: 100%;
+  padding: 0;
+  border: 0;
+  color: #fff7e6;
+  background: transparent;
+  font:
+    bold italic 2cqw "Trebuchet MS",
+    Arial,
+    sans-serif;
+  text-transform: uppercase;
+}
+.sheet-technique-name input::placeholder {
+  color: #fff7e6;
+  opacity: 1;
+}
+.sheet-technique-accuracy {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  left: 82.1%;
+  top: 39.8%;
+  width: 14.1%;
+  height: 5%;
+}
+.sheet-technique-accuracy label {
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+  margin: 0;
+  font:
+    bold italic 1.7cqw Arial,
+    sans-serif;
+  cursor: pointer;
+}
+.sheet-technique-accuracy label + label {
+  padding-left: 1.1cqw;
+  border-left: 1px solid #24190f;
+}
+.sheet-sns .sheet-technique-accuracy input {
+  width: 1.6cqw;
+  height: 1.6cqw;
+  appearance: none;
+  border: 2px solid #24190f;
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+}
+.sheet-sns .sheet-technique-accuracy input:checked {
+  background: #9c3022;
+  box-shadow: inset 0 0 0 3px #ffe2a6;
+}
+.sheet-technique-field {
+  position: absolute;
+  margin: 0;
+}
+.sheet-sns .sheet-technique-field input,
+.sheet-sns .sheet-technique-field textarea {
+  height: 100%;
+  min-height: 0;
+  padding: 0.2cqw 0.5cqw;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 1.22cqw;
+  text-align: left;
+}
+.sheet-sns .sheet-technique-field textarea {
+  resize: none;
+  line-height: 1.5;
+}
+.sheet-sns .sheet-technique-field input:focus,
+.sheet-sns .sheet-technique-field textarea:focus,
+.sheet-sns .sheet-technique-name input:focus {
+  outline: 1px solid #9c3022;
+  outline-offset: 0;
+  background-color: #fff2d533;
+}
+.sheet-technique-empty-flag[value="1"] ~ .sheet-technique-details {
+  pointer-events: none;
+}
+.sheet-damage-modifiers {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-content: start;
+  column-gap: 0.55cqw;
+}
+.sheet-technique-modifiers {
+  left: 37.4349%;
+  top: 22.2656%;
+  width: 60.8073%;
+  height: 8.4961%;
+  grid-template-rows: 2.1cqw 3cqw;
+  row-gap: 0.3cqw;
+}
+.sheet-main-modifiers {
+  left: 37.1745%;
+  top: 86.1328%;
+  width: 50.5208%;
+  height: 10.7422%;
+  grid-template-rows: 2.2cqw 3.6cqw;
+  row-gap: 0.65cqw;
+}
+.sheet-sns h2.sheet-modifiers-title {
+  grid-column: 1 / -1;
+  width: 29.2cqw;
+  height: 100%;
+  margin: 0;
+  padding: 0.15cqw 1.2cqw;
+  border: 0;
+  background: transparent
+    url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/ink-brush.png")
+    center / 100% 100% no-repeat;
+  clip-path: none;
+  color: #fff1d4;
+  font:
+    bold italic 1.45cqw/1.35 "Trebuchet MS",
+    Arial,
+    sans-serif;
+  letter-spacing: 0.015cqw;
+  white-space: nowrap;
+}
+.sheet-damage-modifier {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  gap: 0.1cqw;
+  min-width: 0;
+  margin: 0;
+  padding: 0.2cqw 0.3cqw;
+  border: 1.5px solid #51381fe0;
+  border-radius: 0.42cqw 0.32cqw 0.46cqw 0.36cqw;
+  background: transparent;
+  box-shadow: 0.045cqw 0.05cqw 0 #51381f30;
+  color: #24190f;
+  cursor: pointer;
+}
+.sheet-damage-modifier:hover {
+  border-color: #9c3022;
+}
+.sheet-modifier-caption {
+  font:
+    bold 0.88cqw/1.2 "Arial Narrow",
+    Arial,
+    sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.sheet-modifier-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65cqw;
+  min-height: 0;
+  font:
+    bold 1.2cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+.sheet-sns .sheet-damage-modifier input.sheet-damage-choice {
+  width: 1.25cqw;
+  height: 1.25cqw;
+  margin: 0;
+  appearance: none;
+  border: 1.6px solid #24190f;
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+}
+.sheet-sns .sheet-damage-modifier input.sheet-damage-choice:checked {
+  background: #9c3022;
+  box-shadow: inset 0 0 0 0.17cqw #f9ddb0;
+}
+.sheet-sns .sheet-main-modifiers input.sheet-damage-choice {
+  width: 1.5cqw;
+  height: 1.5cqw;
+}
+.sheet-main-modifiers .sheet-modifier-value {
+  font-size: 1.3cqw;
+}
+.sheet-sns .sheet-damage-modifier input[type="number"] {
+  width: 100%;
+  height: 1.6cqw;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+}
+
+/* A moldura e as ilustrações originais acolhem seis linhas mais legíveis. */
+.sheet-main-damage-table-wrap {
+  position: absolute;
+  left: 36.9792%;
+  top: 56.3477%;
+  width: 60.8073%;
+}
+.sheet-sns .sheet-main-damage-table {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: transparent;
+}
+.sheet-main-damage-table .sheet-damage-type-column {
+  width: 25%;
+}
+.sheet-main-damage-table .sheet-damage-attribute-column {
+  width: 12.5%;
+}
+.sheet-main-damage-table thead {
+  background: #24190f;
+  clip-path: polygon(
+    0 10%,
+    12% 3%,
+    26% 6%,
+    42% 0,
+    58% 5%,
+    74% 1%,
+    88% 5%,
+    100% 0,
+    100% 94%,
+    83% 100%,
+    67% 95%,
+    49% 100%,
+    31% 95%,
+    14% 100%,
+    0 94%
+  );
+}
+.sheet-sns .sheet-main-damage-table thead th {
+  height: 1.8cqw;
+  padding: 0 0.15cqw;
+  border: 0;
+  background: transparent;
+  color: #fff1d4;
+  font:
+    bold 0.93cqw/1.1 "Arial Narrow",
+    Arial,
+    sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+}
+.sheet-sns .sheet-main-damage-table tbody tr {
+  height: 2.66cqw;
+}
+.sheet-sns .sheet-main-damage-table tbody th,
+.sheet-sns .sheet-main-damage-table tbody td {
+  height: 2.66cqw;
+  padding: 0;
+  border: 1px solid #6f482d70;
+  background: transparent;
+  color: #24190f;
+}
+.sheet-main-damage-kind {
+  display: flex;
+  align-items: center;
+  gap: 0.35cqw;
+  min-width: 0;
+  padding: 0 0.35cqw;
+}
+.sheet-main-damage-kind > span {
+  flex: 1;
+  font:
+    bold 0.95cqw/1.2 "Arial Narrow",
+    Arial,
+    sans-serif;
+  text-align: left;
+  text-transform: uppercase;
+}
+.sheet-sns .sheet-main-damage-kind button.sheet-roll-button {
+  position: static;
+  flex: 0 0 1.65cqw;
+  width: 1.65cqw;
+  height: 1.9cqw;
+  padding: 0.1cqw;
+  background: none;
+}
+.sheet-sns .sheet-main-damage-table input[type="number"] {
+  width: 100%;
+  height: 2.5cqw;
+  min-height: 0;
+  margin: 0;
+  padding: 0 0.1cqw;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font:
+    bold 1.2cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+.sheet-main-damage-table input[readonly] {
+  cursor: default;
+}
+.sheet-sns .sheet-main-damage-table .sheet-main-damage-gap,
+.sheet-sns .sheet-main-damage-table .sheet-main-damage-gap td {
+  height: 0.55cqw;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* Um papel contínuo e linhas de tinta substituem os recortes de cada célula. */
+.sheet-main-artboard label.sheet-art-cell::before,
+.sheet-main-artboard label.sheet-art-toggle::before {
+  content: none;
+}
+.sheet-main-artboard .sheet-roll-row {
+  background: transparent;
+}
+.sheet-sns .sheet-main-artboard .sheet-art-toggle input[type="checkbox"] {
+  appearance: none;
+  border: 1px solid #624126;
+  border-radius: 2px;
+  background: #fff2da55;
+}
+.sheet-sns .sheet-main-artboard .sheet-art-toggle input[type="checkbox"]:checked {
+  background: #943b2b;
+  box-shadow: inset 0 0 0 0.12cqw #f9ddb0;
+}
+.sheet-sns h2.sheet-main-damage-title {
+  position: absolute;
+  left: -0.2cqw;
+  top: -2.8cqw;
+  width: 13.5cqw;
+  height: 2.25cqw;
+  margin: 0;
+  padding: 0.18cqw 1.1cqw;
+  border: 0;
+  color: #fff1d4;
+  background: transparent
+    url("https://raw.githubusercontent.com/jvlascasas/ficha-shinobi-no-sho/main/assets/ink-brush.png")
+    center / 100% 100% no-repeat;
+  font:
+    bold italic 1.5cqw/1.3 "Trebuchet MS",
+    Arial,
+    sans-serif;
+}
+.sheet-main-damage-table thead {
+  background: #291e14;
+}
+.sheet-sns .sheet-main-damage-table tbody th,
+.sheet-sns .sheet-main-damage-table tbody td {
+  border-color: #70502c5c;
+}
+.sheet-main-damage-table tbody tr:nth-child(odd) {
+  background: #754b2408;
+}
+.sheet-main-damage-table tbody tr:hover {
+  background: #fff2d52e;
+}
+.sheet-sns .sheet-main-damage-table tbody td:nth-child(6) {
+  background: #b78a4214;
+}
+.sheet-sns .sheet-main-damage-table tbody td:nth-child(6) input {
+  color: #783a26;
+  font-size: 1.32cqw;
+}
+.sheet-main-damage-kind > span {
+  color: #382619;
+  font-size: 1cqw;
+}
+.sheet-main-modifiers {
+  grid-template-rows: 2.2cqw 3.9cqw;
+  row-gap: 0.5cqw;
+}
+.sheet-main-modifiers .sheet-damage-modifier {
+  grid-template-rows: 1.4cqw 1fr;
+  gap: 0;
+  padding: 0;
+  border: 1px solid #624126;
+  border-radius: 0.34cqw 0.26cqw 0.3cqw 0.4cqw;
+  background: linear-gradient(#fff3d41f, transparent);
+  box-shadow: none;
+}
+.sheet-main-modifiers .sheet-modifier-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0.1cqw 0.2cqw;
+  color: #fff0d0;
+  background: #291e14;
+  border-radius: 0.25cqw 0.2cqw 0 0;
+  font-size: 0.83cqw;
+  letter-spacing: 0.015cqw;
+}
+.sheet-main-modifiers .sheet-modifier-value {
+  height: 100%;
+  padding: 0.2cqw;
+}
+.sheet-main-modifiers .sheet-damage-modifier:hover {
+  border-color: #943b2b;
+}
+
+/* Inventário e invocação: controles no papel das referências originais. */
+.sheet-page-inventario {
+  padding: 0;
+}
+.sheet-page-kuchyose {
+  padding: 0.88cqw 0 0;
+}
+.sheet-inventory-artboard,
+.sheet-kuchyose-artboard {
+  position: relative;
+  width: 100%;
+  isolation: isolate;
+}
+.sheet-inventory-artboard {
+  aspect-ratio: 3 / 2;
+}
+.sheet-kuchyose-artboard {
+  aspect-ratio: 1672 / 941;
+}
+.sheet-paper-field {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  margin: 0;
+  color: #24190f;
+}
+.sheet-sns .sheet-paper-field input,
+.sheet-sns .sheet-paper-field select {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0 0.15cqw;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font:
+    bold 1.3cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+  text-align: center;
+}
+.sheet-sns .sheet-paper-field input[type="text"] {
+  font-size: 1.05cqw;
+}
+.sheet-sns .sheet-inventory-artboard .sheet-paper-field input {
+  font-size: 1.8cqw;
+}
+.sheet-sns .sheet-paper-field select {
+  font-size: 1.1cqw;
+  text-transform: uppercase;
+}
+.sheet-paper-currency > span {
+  font:
+    bold 1.6cqw "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+.sheet-sns .sheet-paper-currency input {
+  flex: 1;
+  width: 75%;
+}
+.sheet-paper-unit > span {
+  padding-right: 0.2cqw;
+  font-size: 1.1cqw;
+}
+.sheet-sns .sheet-paper-unit input {
+  width: 75%;
+}
+.sheet-sns .sheet-kuchyose-artboard input.sheet-damage-choice {
+  flex: 0 0 auto;
+  width: 1.25cqw;
+  height: 1.25cqw;
+  margin: 0;
+  appearance: none;
+  border: 1.6px solid #24190f;
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+}
+.sheet-sns .sheet-kuchyose-artboard input.sheet-damage-choice:checked {
+  background: #9c3022;
+  box-shadow: inset 0 0 0 0.17cqw #f9ddb0;
+}
+.sheet-sns .sheet-paper-toggle input.sheet-damage-choice {
+  width: 1.3cqw;
+  height: 1.3cqw;
+}
+.sheet-sns .sheet-paper-field input:focus-visible,
+.sheet-sns .sheet-paper-field select:focus-visible {
+  outline: 1px solid #9c3022;
+  outline-offset: 0;
+  background-color: #fff2d566;
+}
+.sheet-fixed-art-list {
+  position: absolute;
+}
+.sheet-fixed-art-list fieldset,
+.sheet-fixed-art-list .repitem,
+.sheet-fixed-art-list .sheet-preview-item {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+.sheet-fixed-art-list .repcontrol {
+  display: none;
+}
+.sheet-inventory-list {
+  left: 25.3906%;
+  top: 43.9453%;
+  width: 72.3958%;
+  height: 51.9531%;
+}
+.sheet-inventory-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 236fr) minmax(0, 104fr) minmax(0, 105fr) minmax(0, 557fr) minmax(
+      0,
+      110fr
+    );
+  grid-template-rows: minmax(0, 1fr);
+  height: calc(100cqw * 532 / 1536 / 25);
+}
+.sheet-inventory-row > label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  margin: 0;
+  border-right: 1px solid #79522c88;
+  border-bottom: 1px solid #79522c88;
+}
+.sheet-inventory-row > label:first-child {
+  border-left: 1px solid #79522c88;
+}
+.sheet-sns .sheet-inventory-row input,
+.sheet-sns .sheet-inventory-row textarea,
+.sheet-sns .sheet-k-power-row input,
+.sheet-sns .sheet-k-power-row textarea,
+.sheet-sns .sheet-k-aptitude-row input,
+.sheet-sns .sheet-k-aptitude-row textarea {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0 0.2cqw;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font:
+    bold 0.9cqw/1.2 "Arial Narrow",
+    Arial,
+    sans-serif;
+  text-align: center;
+  resize: none;
+}
+.sheet-sns .sheet-inventory-row input[type="text"] {
+  text-align: left;
+}
+.sheet-sns .sheet-inventory-row textarea,
+.sheet-sns .sheet-k-power-row textarea,
+.sheet-sns .sheet-k-aptitude-row textarea {
+  overflow: hidden;
+  padding-top: 0.1cqw;
+  font-weight: normal;
+  white-space: nowrap;
+  text-align: left;
+}
+.sheet-art-description:focus-within {
+  z-index: 20;
+}
+.sheet-sns .sheet-art-description textarea:focus {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 20;
+  height: max(70px, 6cqw);
+  padding: 0.4cqw;
+  overflow: auto;
+  border: 1px solid #9c3022;
+  background: #fff0d2;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  resize: vertical;
+}
+.sheet-fixed-art-list .sheet-preview-item:nth-last-child(-n + 4) textarea:focus,
+.sheet-fixed-art-list .repitem:nth-last-child(-n + 4) textarea:focus {
+  top: auto;
+  bottom: 0;
+}
+.sheet-item-weight {
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  right: 0;
+  width: 1.1cqw;
+  opacity: 0;
+  font-size: 0.65cqw;
+}
+.sheet-inventory-row:hover .sheet-item-weight,
+.sheet-item-weight[open],
+.sheet-item-weight:focus-within {
+  opacity: 1;
+}
+.sheet-item-weight summary {
+  cursor: pointer;
+}
+.sheet-item-weight > label {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 12cqw;
+  padding: 0.5cqw;
+  border: 1px solid #51381f;
+  border-radius: 4px;
+  background: #ffe2b1;
+  font-size: 0.85cqw;
+}
+.sheet-sns .sheet-item-weight input {
+  height: 2cqw;
+  border: 1px solid #79522c88;
+}
+.sheet-inventory-legacy {
+  position: absolute;
+  z-index: 25;
+  left: 24.7396%;
+  top: 25.5859%;
+  width: 26.6927%;
+  height: 5.2734%;
+}
+.sheet-inventory-legacy > summary {
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  cursor: pointer;
+}
+.sheet-inventory-legacy > summary::-webkit-details-marker {
+  display: none;
+}
+.sheet-inventory-legacy > summary:hover {
+  outline: 1px solid #f4d69a;
+}
+.sheet-inventory-legacy-panel {
+  position: absolute;
+  z-index: 25;
+  top: 100%;
+  left: 0;
+  padding: 1cqw;
+  overflow: auto;
+  border: 2px solid #51381f;
+  border-radius: 8px 5px 7px 6px;
+  background: #f9ddb0;
+  background-image: repeating-linear-gradient(15deg, #59350b05 0 1px, transparent 1px 5px);
+  box-shadow: 0 0.35cqw 1cqw #24190f55;
+  color: #24190f;
+}
+.sheet-inventory-legacy-panel {
+  width: 70cqw;
+  max-height: 39cqw;
+}
+.sheet-partner-badge {
+  position: absolute;
+  top: 0.5cqw;
+  right: 0.3cqw;
+  font:
+    bold 0.85cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+  color: #6c2e1f;
+}
+.sheet-k-precision {
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+.sheet-sns .sheet-k-precision input {
+  width: 65%;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font:
+    bold 1.15cqw "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+.sheet-sns .sheet-k-precision button {
+  flex: 0 0 1.1cqw;
+  width: 1.1cqw;
+  height: 1.25cqw;
+  margin: 0;
+  padding: 0;
+}
+.sheet-k-combat-list {
+  position: absolute;
+  left: 2.512%;
+  top: 75.4516%;
+  width: 28.3493%;
+  height: 7.864%;
+}
+.sheet-k-combat-row {
+  display: grid;
+  grid-template-columns: 28% 17.5% 15% 22% 17.5%;
+  height: 1.1065cqw;
+}
+.sheet-k-combat-row > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3cqw;
+  border: 1px solid #79522c88;
+  font:
+    bold 0.95cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+.sheet-sns .sheet-k-combat-row input {
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  border: 1px solid #79522c88;
+  border-radius: 0;
+  background: transparent;
+  font:
+    bold 1cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+.sheet-sns .sheet-k-combat-row button {
+  flex: 0 0 1cqw;
+  width: 1cqw;
+  height: 1.05cqw;
+  margin: 0;
+  padding: 0;
+}
+.sheet-k-damage-list {
+  position: absolute;
+  left: 32.2967%;
+  top: 51.7535%;
+  width: 32.0574%;
+  height: 17.322%;
+}
+.sheet-k-damage-head,
+.sheet-k-damage-row {
+  display: grid;
+  grid-template-columns: 30% 8% 8% 10% 10% repeat(4, 8.5%);
+}
+.sheet-k-damage-head {
+  height: 1.15cqw;
+  align-items: center;
+  background: #24190f;
+  color: #fff0d4;
+  font:
+    bold 0.72cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+}
+.sheet-k-damage-row {
+  height: 1.23cqw;
+}
+.sheet-sns .sheet-k-damage-row input {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  border: 1px solid #79522c88;
+  border-radius: 0;
+  background: transparent;
+  font:
+    bold 0.87cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+.sheet-k-attack-name {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  border-bottom: 1px solid #79522c88;
+}
+.sheet-sns .sheet-k-attack-name input {
+  min-width: 0;
+  padding-left: 0.2cqw;
+  border-right: 0;
+  font-size: 0.76cqw;
+  text-align: left;
+  text-transform: uppercase;
+}
+.sheet-sns .sheet-k-attack-name button {
+  flex: 0 0 1cqw;
+  width: 1cqw;
+  height: 1.1cqw;
+  margin: 0;
+  padding: 0;
+}
+.sheet-k-powers-list {
+  left: 66.866%;
+  top: 30.1807%;
+  width: 31.5191%;
+  height: 8.3953%;
+}
+.sheet-k-aptitudes-list {
+  left: 66.866%;
+  top: 46.2274%;
+  width: 31.5191%;
+  height: 35.3879%;
+}
+.sheet-k-power-row,
+.sheet-k-aptitude-row {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+}
+.sheet-k-power-row {
+  grid-template-columns: minmax(0, 158fr) minmax(0, 55fr) minmax(0, 247fr) minmax(0, 67fr);
+  height: calc(100cqw * 79 / 1672 / 4);
+}
+.sheet-k-aptitude-row {
+  grid-template-columns: minmax(0, 160fr) minmax(0, 293fr) minmax(0, 74fr);
+  height: calc(100cqw * 333 / 1672 / 17);
+}
+.sheet-k-power-row > label,
+.sheet-k-aptitude-row > label,
+.sheet-k-cost-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  margin: 0;
+  border-right: 1px solid #79522c88;
+  border-bottom: 1px solid #79522c88;
+}
+.sheet-k-name-cell {
+  display: flex;
+  align-items: center;
+}
+.sheet-sns .sheet-k-name-cell input[type="text"] {
+  min-width: 0;
+  text-align: left;
+}
+.sheet-k-cost-settings {
+  position: absolute;
+  inset: 0;
+}
+.sheet-k-cost-settings > summary {
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  cursor: pointer;
+}
+.sheet-k-cost-settings > summary::-webkit-details-marker {
+  display: none;
+}
+.sheet-k-cost-settings > summary:hover,
+.sheet-k-cost-settings > summary:focus-visible {
+  outline: 1px solid #9c3022;
+  outline-offset: -1px;
+}
+.sheet-k-cost-settings[open] {
+  z-index: 25;
+}
+.sheet-k-cost-settings > label {
+  position: absolute;
+  z-index: 25;
+  top: 100%;
+  right: 0;
+  width: 19cqw;
+  padding: 0.6cqw;
+  border: 1px solid #79522c;
+  border-radius: 3px;
+  background: #f9ddb0;
+  box-shadow: 0 0.2cqw 0.5cqw #24190f44;
+  font-size: 0.9cqw;
+}
+.sheet-sns .sheet-k-cost-settings select {
+  height: 2.2cqw;
+  min-height: 26px;
+  padding: 0.2cqw;
+  font-size: 0.9cqw;
+}
+.sheet-fixed-art-list .sheet-preview-item:nth-last-child(-n + 4) .sheet-k-cost-settings > label,
+.sheet-fixed-art-list .repitem:nth-last-child(-n + 4) .sheet-k-cost-settings > label {
+  top: auto;
+  bottom: 100%;
+}
+.sheet-k-energy-bar {
+  position: absolute;
+  border-radius: 2px;
+}
+.sheet-roll-description {
+  padding-top: 12px;
+  border-top: 1px solid #866037;
+  white-space: pre-wrap;
+  text-align: left;
+  line-height: 1.5;
+}
+.sheet-rolltemplate-snstest .sheet-test-description {
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+/* Kugutsu usa as proporções e as ilustrações da referência de 1536 × 1024. */
+.sheet-tab-kugutsu:checked ~ .sheet-page-kugutsu {
+  display: block;
+}
+.sheet-sns .sheet-page-kugutsu,
+.sheet-sns .sheet-page-configuracoes {
+  padding: 0;
+}
+.sheet-kg-overview,
+.sheet-kg-puppet-card,
+.sheet-configurations-artboard {
+  position: relative;
+  width: 100%;
+}
+.sheet-kg-overview {
+  aspect-ratio: 1536 / 624;
+}
+.sheet-kg-puppet-card {
+  aspect-ratio: 1536 / 249;
+}
+.sheet-configurations-artboard {
+  aspect-ratio: 3 / 2;
+}
+.sheet-kg-field {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+}
+.sheet-sns .sheet-kg-field input,
+.sheet-sns .sheet-kg-field select {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0 0.3cqw;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font:
+    bold 1.65cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+  text-align: center;
+}
+.sheet-sns .sheet-kg-field select {
+  font-size: 1.15cqw;
+  text-transform: uppercase;
+}
+.sheet-sns .sheet-kg-field input[type="text"] {
+  font-size: 1.5cqw;
+}
+.sheet-kg-unit {
+  padding-right: 0.2cqw;
+  font:
+    bold 1.4cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+.sheet-sns .sheet-kg-field:has(.sheet-kg-unit) input {
+  width: 74%;
+}
+.sheet-sns .sheet-kg-field input[name="attr_nome"],
+.sheet-sns .sheet-kg-field input[name="attr_kg_marionete_nome"] {
+  font-size: 1.1cqw;
+  text-align: left;
+}
+.sheet-sns .sheet-kg-field select[name^="attr_kg_parcial_"] {
+  font-size: 0.95cqw;
+}
+.sheet-sns .sheet-kg-field input:focus,
+.sheet-sns .sheet-kg-field select:focus {
+  outline: 1px solid #943b2b;
+  outline-offset: 0;
+  background: #fff2d550;
+}
+.sheet-kg-active-caption {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff0d2;
+  font:
+    bold italic 1.02cqw "Trebuchet MS",
+    Arial,
+    sans-serif;
+  text-transform: uppercase;
+}
+.sheet-sns button.sheet-kg-die {
+  position: absolute;
+  padding: 0.12cqw;
+  border-radius: 50%;
+  background: #f9ddb0;
+}
+.sheet-sns button.sheet-kg-add {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #614120;
+  border-radius: 3px;
+  background: #291e14;
+  color: #fff0d2;
+  font:
+    bold 1.6cqw/1 Arial,
+    sans-serif;
+}
+.sheet-kg-puppets fieldset,
+.sheet-kg-puppets .sheet-preview-item,
+.sheet-kg-puppets .repitem {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+.sheet-kg-puppets .repcontrol {
+  display: none;
+}
+.sheet-kg-puppets.sheet-power-list-overflow {
+  overflow: visible;
+}
+.sheet-kg-absorption-bar {
+  position: absolute;
+  border: 1px solid #654323;
+  border-radius: 3px;
+  background: #fff0d333;
+}
+.sheet-kg-absorption-bar .sheet-energy-fill {
+  background: #ad7835;
+}
+.sheet-sns .sheet-kg-field .sheet-damage-choice,
+.sheet-sns .sheet-configuration-check input {
+  appearance: none;
+  width: 1.3cqw;
+  height: 1.3cqw;
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid #624126;
+  border-radius: 2px;
+  background: #fff2da33;
+  cursor: pointer;
+}
+.sheet-sns .sheet-kg-field .sheet-damage-choice:checked,
+.sheet-sns .sheet-configuration-check input:checked {
+  background: #943b2b;
+  box-shadow: inset 0 0 0 0.16cqw #f9ddb0;
+}
+.sheet-configuration-check {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+.sheet-configurations-legacy[hidden] {
+  display: none;
+}
+.sheet-kg-general-notebook,
+.sheet-kg-puppet-notebook {
+  position: absolute;
+  z-index: 8;
+}
+.sheet-kg-puppet-notebook {
+  left: 50.78%;
+  top: 7.23%;
+  width: 25%;
+  height: 25.3%;
+}
+.sheet-kg-general-notebook > summary,
+.sheet-kg-puppet-notebook > summary {
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  cursor: pointer;
+}
+.sheet-kg-general-notebook > summary::-webkit-details-marker,
+.sheet-kg-puppet-notebook > summary::-webkit-details-marker {
+  display: none;
+}
+.sheet-kg-general-notebook > summary:hover,
+.sheet-kg-puppet-notebook > summary:hover {
+  outline: 1px solid #d4a75f;
+  outline-offset: -3px;
+}
+.sheet-kg-general-notebook[open],
+.sheet-kg-puppet-notebook[open] {
+  z-index: 40;
+}
+.sheet-kg-notebook-panel {
+  position: absolute;
+  z-index: 40;
+  top: 100%;
+  left: 0;
+  width: 65cqw;
+  max-height: min(68vh, 46cqw);
+  overflow: auto;
+  padding: 1cqw;
+  border: 2px solid #654323;
+  border-radius: 5px;
+  background: #f9ddb0;
+  box-shadow: 0 0.3cqw 1cqw #24190f55;
+}
+.sheet-kg-puppet-notebook .sheet-kg-notebook-panel {
+  top: auto;
+  left: auto;
+  right: 0;
+  bottom: 100%;
+}
+.sheet-sns .sheet-kg-notebook-panel h2 {
+  margin-bottom: 0.6cqw;
+  font-size: 1.25cqw;
+}
+.sheet-sns .sheet-kg-notebook-panel .sheet-field {
+  margin-bottom: 0.6cqw;
+  font-size: 0.9cqw;
+}
+.sheet-sns .sheet-kg-notebook-panel input,
+.sheet-sns .sheet-kg-notebook-panel select {
+  height: 2.25cqw;
+  min-height: 24px;
+  padding: 0.2cqw 0.3cqw;
+  font-size: 0.9cqw;
+}
+.sheet-sns .sheet-kg-notebook-panel textarea {
+  min-height: 4cqw;
+  font-size: 0.95cqw;
+}
+.sheet-kg-device-header,
+.sheet-kg-device-row {
+  display: grid;
+  grid-template-columns: minmax(0, 3.8fr) minmax(0, 1.4fr) repeat(4, minmax(0, 0.8fr)) minmax(
+      0,
+      1.3fr
+    );
+  gap: 0.3cqw;
+  align-items: center;
+}
+.sheet-kg-aptitude-header,
+.sheet-kg-aptitude-row {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.3cqw;
+  align-items: center;
+}
+.sheet-kg-device-header,
+.sheet-kg-aptitude-header {
+  margin: 0.6cqw 0 0.3cqw;
+  padding: 0.35cqw;
+  color: #fff0d2;
+  background: #291e14;
+  font:
+    bold 0.9cqw/1.2 Arial,
+    sans-serif;
+}
+.sheet-kg-device-row,
+.sheet-kg-aptitude-row {
+  margin-bottom: 0.3cqw;
+}
+.sheet-kg-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4cqw;
+  margin-top: 0.7cqw;
+}
+.sheet-sns .sheet-kg-actions button {
+  padding: 0.4cqw 0.7cqw;
+  border: 1px solid #654323;
+  border-radius: 3px;
+  background: #f0cd94;
+  font-size: 0.9cqw;
+}
+
+/* Ajustes das opções e regras calculadas, sobre a mesma arte de pergaminho. */
+.sheet-sns .sheet-extra-caption {
+  font-size: 0.84cqw;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.sheet-furtividade-attribute {
+  position: absolute;
+  left: 27.2786%;
+  top: 81.9336%;
+  width: 3.125%;
+  height: 1.587%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font:
+    bold 0.846cqw/1 "Arial Narrow",
+    Arial,
+    sans-serif;
+}
+.sheet-configuration-adjustments,
+.sheet-config-overview,
+.sheet-main-config-details {
+  position: absolute;
+  z-index: 10;
+}
+.sheet-configuration-adjustments > summary,
+.sheet-config-overview > summary,
+.sheet-main-config-details > summary {
+  cursor: pointer;
+  list-style: none;
+}
+.sheet-configuration-adjustments > summary::-webkit-details-marker,
+.sheet-config-overview > summary::-webkit-details-marker,
+.sheet-main-config-details > summary::-webkit-details-marker {
+  display: none;
+}
+.sheet-configuration-adjustments > summary {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: #70411d;
+  font-size: 0.8cqw;
+}
+.sheet-configuration-adjustments[open],
+.sheet-config-overview[open],
+.sheet-main-config-details[open] {
+  z-index: 60;
+}
+.sheet-configuration-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 35cqw;
+  max-height: min(60vh, 43cqw);
+  overflow: auto;
+  padding: 1cqw;
+  border: 2px solid #654323;
+  border-radius: 5px;
+  background: #f9ddb0;
+  box-shadow: 0 0.3cqw 1cqw #24190f55;
+  color: #291e14;
+}
+.sheet-open-left > .sheet-configuration-panel,
+.sheet-power-parameters > .sheet-configuration-panel,
+.sheet-technique-parameters > .sheet-configuration-panel {
+  left: auto;
+  right: 0;
+}
+.sheet-open-up > .sheet-configuration-panel {
+  top: auto;
+  bottom: 100%;
+}
+.sheet-sns .sheet-configuration-panel h2 {
+  margin: 0 0 0.7cqw;
+  font-size: 1.2cqw;
+}
+.sheet-sns .sheet-configuration-panel p {
+  margin: 0 0 0.7cqw;
+  font-size: 0.95cqw;
+  line-height: 1.45;
+}
+.sheet-sns .sheet-configuration-panel .sheet-field {
+  margin-bottom: 0.7cqw;
+  font-size: 0.9cqw;
+}
+.sheet-sns .sheet-configuration-panel input,
+.sheet-sns .sheet-configuration-panel select {
+  height: 2.5cqw;
+  min-height: 25px;
+  padding: 0.25cqw 0.4cqw;
+  font-size: 0.95cqw;
+}
+.sheet-sns .sheet-configuration-panel textarea {
+  width: 100%;
+  min-height: 5cqw;
+  padding: 0.4cqw;
+  font-size: 0.95cqw;
+  line-height: 1.45;
+}
+.sheet-config-overview > summary,
+.sheet-power-parameters > summary,
+.sheet-technique-parameters > summary {
+  padding: 0.45cqw;
+  border: 1px solid #68401c;
+  border-radius: 3px;
+  color: #fff0d0;
+  background: #291e14;
+  font:
+    bold italic 1cqw/1.2 "Trebuchet MS",
+    Arial,
+    sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+}
+.sheet-resource-details {
+  left: 53.32%;
+  top: 37.5%;
+  width: 10.15%;
+  height: 2.05%;
+}
+.sheet-resource-details > summary {
+  width: 100%;
+  height: 100%;
+}
+.sheet-resource-details > summary:hover {
+  outline: 1px solid #e8bd76;
+}
+.sheet-resource-details .sheet-configuration-panel {
+  width: 29cqw;
+}
+.sheet-power-parameters {
+  right: 2.3%;
+  top: 52%;
+  width: 23%;
+}
+.sheet-sns .sheet-power-parameters > summary {
+  padding: 0.25cqw;
+}
+.sheet-instinct-bonus {
+  position: absolute;
+  right: 1px;
+  top: 50%;
+  transform: translateY(-50%);
+  font:
+    bold 0.72cqw/1 Arial,
+    sans-serif;
+  color: #9c2e20;
+  pointer-events: none;
+}
+.sheet-instinct-bonus::after {
+  content: "+1";
+}
+.sheet-instinct-state:not([value="1"]) + .sheet-instinct-bonus {
+  display: none;
+}
+.sheet-power-parameters .sheet-configuration-panel {
+  width: 46cqw;
+}
+.sheet-technique-parameters {
+  left: 73%;
+  top: 66.6%;
+  width: 24%;
+}
+.sheet-sns .sheet-technique-parameters > summary {
+  font-size: 0.85cqw;
+}
+.sheet-technique-parameters .sheet-configuration-panel {
+  top: auto;
+  bottom: 100%;
+}
